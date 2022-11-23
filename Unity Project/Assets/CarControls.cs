@@ -22,7 +22,14 @@ public class CarControls : MonoBehaviour
         accelaration = Mathf.Clamp(accelaration, 0, 80);
         if (Input.GetKey(KeyCode.S))
         {
-            accelaration -= accelarationSpeed * Time.deltaTime;
+            if (accelaration == 0)
+            {
+                accelaration = -5;
+            }
+            else
+            {
+                accelaration -= accelarationSpeed * Time.deltaTime;
+            }
         }
         if (Input.GetKey(KeyCode.W))
         {
@@ -35,7 +42,7 @@ public class CarControls : MonoBehaviour
             accelaration -= accelarationSpeed * Time.deltaTime;
         }
         transform.position += transform.forward * Time.deltaTime * accelaration;
-        if (accelaration > 0)
+        if (accelaration != 0)
         {
             if (Input.GetKey(KeyCode.D))
             {

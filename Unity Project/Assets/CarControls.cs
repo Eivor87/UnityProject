@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,10 @@ public class CarControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if ((transform.position.y < -0.5f) || carIsUpsideDown())
+        {
+            resetCar();
+        }
         
         accelaration = Mathf.Clamp(accelaration, 0, 80);
         if (Input.GetKey(KeyCode.S))
@@ -56,5 +60,19 @@ public class CarControls : MonoBehaviour
 
         }
 
+    }
+
+    private void resetCar()
+    {
+        transform.position = new Vector3(3, 0, 2);
+
+        transform.rotation = Quaternion.identity;
+
+        accelaration = 0f;
+    }
+
+    private bool carIsUpsideDown()
+    {
+        return (Vector3.Dot(Vector3.up, transform.up) < -0.5f);
     }
 }
